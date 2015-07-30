@@ -1,0 +1,53 @@
+<% content_for :title, @bucket.name %>
+
+<ul class="nav">
+  <li class="logo"><a href="/"><%= image_tag 'logo.png' %></a></li>
+  <li><a href="<%= "/#{@bucket.token}/inspect" %>">Inspect</a></li>
+  <% if user_signed_in? %>
+    <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+  <% else %>
+    <li><%= link_to 'Sign in', new_user_session_path  %></li>
+    <li><%= link_to 'Sign up', new_user_registration_path %></li>
+  <% end %>
+</ul>
+
+<section class="putsbox-url-box">
+  <h3>Your PutsBox Email</h3>
+  <div class="input-group putsbox-url">
+    <input id="putsbox-url-input" type="text" value="<%= token_email(@bucket.token) %>" readonly="readonly"></input>
+    <span id="copy-button" data-clipboard-text="<%= token_email(@bucket.token) %>" class="input-group-addon hastip clipboard">
+      <span class="glyphicon glyphicon-link hastip"></span>
+    </span>
+  </div>
+</section>
+
+<br/><br/>
+
+<hr/>
+<%= render 'form' %>
+<hr/>
+
+<p id="new-requests-info"><!-- placeholder: New requests received. Load newer requests? --></p>
+
+<div class="row">
+  <div class="col-md-6">
+    <% if @bucket.first_email_at %>
+      <p>
+        <em>First email at: <%= @bucket.first_email_at %></br>
+        Last email at: <%= @bucket.last_email_at %></br>
+        <% if @bucket.last_email_at - @bucket.first_email_at > 0 %>
+          From first to last: <%= distance_of_time_in_words @bucket.first_email_at, @bucket.last_email_at, include_seconds: true %>
+        <% end %>
+        </em>
+      </p>
+    <% end %>
+  </div>
+  <div class="col-md-6"></div>
+</div>
+<p><%= paginate @emails %></p>
+
+<hr/>
+<%= render(partial: 'emails') || show_no_emails_found(@bucket) %>
+<p><%= paginate @emails %></p>
+
+<script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>

@@ -1,0 +1,10 @@
+script:
+  - 'bundle exec rspec'
+
+branches:
+  only:
+    - master
+rvm:
+  - 2.0.0
+services:
+  - mongodb

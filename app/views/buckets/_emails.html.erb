@@ -1,0 +1,24 @@
+<table class="requests-header">
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>Subject</th>
+      <th>Date</th>
+      <th>&nbsp;</th>
+    </tr>
+  <thead>
+  <tbody>
+  <% @emails.each do |email| %>
+    <tr>
+      <td><%= email.from_email %></td>
+      <td><%= email.subject %></td>
+      <td><%= email.created_at %></td>
+      <td>
+        <%= link_to 'Text', email_url(token: @bucket.token, id: email.id, format: :text) %>&nbsp;|&nbsp;
+        <%= link_to 'HTML', email_url(token: @bucket.token, id: email.id, format: :html) %>
+    </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<hr/>

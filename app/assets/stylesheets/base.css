@@ -1,0 +1,68 @@
+html { font-size: 62.5%; }
+body { font-size: 14px; font-size: 1.4rem; background: #f7f7f7;} /* =14px */
+#editor {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+header {
+  margin-top: 50px;
+  text-align: center;
+}
+header h3 {
+  width: 750px;
+  margin: 20px auto;
+  line-height: 1.2em;
+  text-align: center;
+  font-weight: normal;
+}
+header h3 em {
+  font-weight: bold;
+  font-style: normal;
+}
+section.start {
+  color: #58585a;
+  width: 750px;
+  margin: 5em auto;
+}
+.nav {
+  margin: 10px 0 50px 0;
+  overflow: hidden;
+}
+.nav li {
+  float: left;
+  margin-right: 10px;
+  line-height: 30px;
+}
+.nav li a {
+  padding: 0 10px;
+}
+.nav li.logo img {
+  max-width: 100px;
+}
+.nav li.logo {
+  margin: 0;
+}
+.nav li.logo a {
+  background: none;
+  padding: 0 20px 0 0;
+}
+.putsbox-url-box {
+  text-align: center;
+}
+.putsbox-url {
+  margin: 0 auto;
+  width: 633px;
+}
+.putsbox-url input {
+  font-size: 2em;
+  width: 645px;
+  text-indent: 10px;
+}
+.putsbox-name input {
+  font-size: 2em;
+  width: 400px;
+  text-indent: 10px;
+}
