@@ -47,7 +47,13 @@
 <p><%= paginate @emails %></p>
 
 <hr/>
-<%= render(partial: 'emails') || show_no_emails_found(@bucket) %>
+
+<% if @bucket.emails.any? %>
+  <%= render(partial: 'emails') %>
+<% else %>
+  <%= show_no_emails_found(@bucket) %>
+<% end %>
+
 <p><%= paginate @emails %></p>
 
 <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>

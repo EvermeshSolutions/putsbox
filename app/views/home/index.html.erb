@@ -3,7 +3,7 @@
     <div class="">
       <header>
         <%= image_tag 'logo.png' %>
-        <h3><em>PutsBox</em> lets you record HTTP requests and simulate responses like no other tool available. Try it now!</h3>
+        <h3>Email integration tests made easy. Try it now!</h3>
         <%= form_for :bucket, url: buckets_path do |f| %>
           <button class="btn btn-primary btn-large">Create a PutsBox</button>
           <em>
@@ -27,17 +27,12 @@
             </ul>
           </div>
         <% end %>
-        <h4>Record the requests sent or received</h4>
-        <p>Change your target URL to a PutsBox URL, so you will be able to inspect all headers and body being sent.
-        You can also debug callbacks from external services by configuring a PutsBox URL instead of your Webhook URL.</p>
-        <h4 class="tm20">Simulate responses</h4>
-        <p>PutsBox is the easiest way to simulate/stub HTTP responses. You can define the response status, headers and body with JavaScript using the <a href="https://github.com/phstc/putsbox#response-builder">Response Builder</a>.
-        If you don't want to test against the real API, but you know how to simulate (mock) the response, you can do that using a Response Builder.</p>
+        <h4>Record the emails sent from your application</h4>
+        <p>Change your test email to a PutsBox email, then you will be able to inspect all headers and body being sent.</p>
         <p>Some use cases:</p>
         <ul>
-          <li>Get the real response once then create a Response Builder simulating it and use PutsBox for the next calls.</li>
-          <li>Use PutsBox for your integration tests to verify if your application is making the HTTP requests as expected <a href="https://github.com/phstc/putsbox_integration_sample/blob/master/spec/acceptance/create_user_spec.rb">by checking the last recorded request</a>.</li>
-          <li>To do some benchmarks by checking the First and Last request timestamps, or by checking the numbers of requests made within a period.</li>
+          <li>To implement full acceptance tests with <a href="https://github.com/jnicklas/capybara">Capybara</a>, <a href="https://ghostinspector.com">Ghost Inspector</a>, <a href="http://www.seleniumhq.org/">Selenium</a> etc - You can test if your application is sending the emails properly.</li>
+          <li>To benchmark by checking the First and Last received emails timestamps, or by checking the numbers of emails received within a period.</li>
         </ul>
       </section>
     </div>

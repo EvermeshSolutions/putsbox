@@ -35,10 +35,6 @@ class Bucket
     emails.delete_all
   end
 
-  def self.find_by_token(token)
-    where(token: token).first
-  end
-
   private
 
   def generate_token

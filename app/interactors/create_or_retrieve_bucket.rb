@@ -2,7 +2,7 @@ class CreateOrRetrieveBucket
   include Interactor
 
   def call
-    if context.token && (bucket = Bucket.find_by_token(context.token))
+    if context.token && (bucket = (Bucket.find_by(token: context.token) rescue nil))
       return context.bucket = bucket
     end
 

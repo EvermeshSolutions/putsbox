@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def bucket
-    @bucket ||= Bucket.find_by_token(params[:token]) || raise(ActionController::RoutingError.new('Bucket not found'))
+    @bucket ||= Bucket.find_by(token: params[:token])
   end
 
   def configure_permitted_parameters

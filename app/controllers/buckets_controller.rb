@@ -1,17 +1,21 @@
 class BucketsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :record
 
-  before_filter :check_ownership!, only: %i[clear destroy update]
+  before_filter :check_ownership!, only: %i[clear destroy]
 
   def create
     result = CreateOrRetrieveBucket.call(owner_token: owner_token,
                                          user_id: current_user.try(:id),
                                          token: params[:token])
-
-    redirect_to bucket_path(result.bucket.token)
+    if result.success?
+      redirect_to bucket_path(result.bucket.token)
+    else
+      redirect_to root_path, alert: result.message
+    end
   end
 
   def clear
+    bucket = Bucket.find_by(token: params[:token])
     bucket.clear_history
 
     redirect_to bucket_path(bucket.token)
@@ -33,30 +37,13 @@ class BucketsController < ApplicationController
 
       email_params['created_at'] = Time.at(event['ts'])
 
-      RecordEmail.call(token: email_params[:email].gsub(/\@.*/, ''), email: Email.new(email_params))
+      RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''), email: Email.new(email_params))
     end
-
-    notify_count
 
     head :ok
   end
 
   private
-
-  def notify_count
-    return unless ENV['PUSHER_SECRET'] || ENV['PUSHER_APP_ID']
-
-    Pusher.url = "http://3466d56fe2ef1fdd2943:#{ENV['PUSHER_SECRET']}@api.pusherapp.com/apps/#{ENV['PUSHER_APP_ID']}"
-
-    Pusher["channel_#{bucket.token}"].trigger 'update_count', bucket.emails_count
-  end
-
-  def render_request_not_found
-    respond_to do |format|
-      format.html { redirect_to bucket_path(bucket.token), alert: 'Please submit a request first' }
-      format.json { render nothing: true, status: 404 }
-    end
-  end
 
   def bucket_params
     params.require(:bucket).permit(:name)
