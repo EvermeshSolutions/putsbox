@@ -1,5 +1,5 @@
 class EmailsController < ApplicationController
-  respond_to :html, :text
+  respond_to :html, :text, :json
 
   skip_before_action :redirect_from_preview_subdomain
 
@@ -12,6 +12,7 @@ class EmailsController < ApplicationController
     respond_to do |format|
       format.html { render inline: email.html }
       format.text { render text: email.text }
+      format.json { render json: email }
     end
   end
 

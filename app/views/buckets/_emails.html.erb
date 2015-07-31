@@ -14,8 +14,9 @@
       <td><%= email.subject %></td>
       <td><%= email.created_at %></td>
       <td>
-        <%= link_to 'Text', email_url(token: @bucket.token, id: email.id, format: :text) %>&nbsp;|&nbsp;
-        <%= link_to 'HTML', email_url(token: @bucket.token, id: email.id, format: :html) %>
+        <%= link_to 'Text', email_url(token: @bucket.token, id: email.id, format: :text), target: '_blank' %>&nbsp;|&nbsp;
+        <%= link_to 'HMTL', email_url(token: @bucket.token, id: email.id, format: :html), target: '_blank' %>&nbsp;|&nbsp;
+        <%= link_to 'JSON', email_url(token: @bucket.token, id: email.id, format: :json), target: '_blank' %>
     </td>
     </tr>
   <% end %>

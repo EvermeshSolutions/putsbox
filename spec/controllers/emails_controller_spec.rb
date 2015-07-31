@@ -37,7 +37,7 @@ RSpec.describe EmailsController do
 
   describe 'GET #show' do
     context 'when format text' do
-      it 'shows text' do
+      it 'renders text' do
         result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
         bucket = result.bucket
 
@@ -49,8 +49,8 @@ RSpec.describe EmailsController do
       end
     end
 
-    context 'when format html' do
-      it 'shows HTML' do
+    context 'when format HTML' do
+      it 'renders HTML' do
         result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
         bucket = result.bucket
 
@@ -59,6 +59,19 @@ RSpec.describe EmailsController do
         get :show, token: bucket.token, id: email.id.to_s, format: :html, subdomain: 'preview'
 
         expect(response.body).to eq(email.html)
+      end
+    end
+
+    context 'when format JSON' do
+      it 'renders JSON' do
+        result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
+        bucket = result.bucket
+
+        allow(controller).to receive(:redirect_from_root_domain)
+
+        get :show, token: bucket.token, id: email.id.to_s, format: :json, subdomain: 'preview'
+
+        expect(response.body).to eq(EmailSerializer.new(email).to_json)
       end
     end
   end
