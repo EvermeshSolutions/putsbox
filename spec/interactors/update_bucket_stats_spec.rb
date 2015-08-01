@@ -17,7 +17,7 @@ RSpec.describe UpdateBucketStats do
                                            'last_email_at'  => Time.now)
     end
 
-    context 'when existing requests' do
+    context 'when existing emails' do
       before do
         described_class.call(bucket: bucket)
       end

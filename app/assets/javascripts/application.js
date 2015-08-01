@@ -17,11 +17,6 @@
 //= require zeroclipboard
 //= require favico.js
 //
-//= require ace/ace
-//= require ace/theme-chrome
-//= require ace/mode-json
-//= require ace/mode-javascript
-//
 //= require dispatcher
 //= require initializers
 //= require_tree .
