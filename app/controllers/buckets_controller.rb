@@ -7,11 +7,8 @@ class BucketsController < ApplicationController
     result = CreateOrRetrieveBucket.call(owner_token: owner_token,
                                          user_id: current_user.try(:id),
                                          token: params[:token])
-    if result.success?
-      redirect_to bucket_path(result.bucket.token)
-    else
-      redirect_to root_path, alert: result.message
-    end
+
+    redirect_to bucket_path(result.bucket.token)
   end
 
   def clear
