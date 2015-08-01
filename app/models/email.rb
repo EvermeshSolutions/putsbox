@@ -14,8 +14,9 @@ class Email
   field :html
   field :raw_msg
 
-  # index created_at: 1, options { expireAfterSeconds: 604800 }
   index bucket_id: 1, created_at: -1
+
+  # index({ created_at: 1 }, { expire_after_seconds: 10.minutes })
 
   validates :bucket, presence: true
 
