@@ -4,11 +4,11 @@ class BucketsController < ApplicationController
   before_filter :check_ownership!, only: %i[clear destroy]
 
   def create
-    result = CreateOrRetrieveBucket.call(owner_token: owner_token,
-                                         user_id: current_user.try(:id),
-                                         token: params[:token])
+    bucket = Bucket.create(owner_token: owner_token,
+                           user_id: current_user.try(:id),
+                           token: params[:token])
 
-    redirect_to bucket_path(result.bucket.token)
+    redirect_to bucket_path(bucket.token)
   end
 
   def clear
