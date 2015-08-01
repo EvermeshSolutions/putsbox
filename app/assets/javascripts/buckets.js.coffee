@@ -30,7 +30,7 @@ EmailCountPoller =
     bucket = bucket[bucket.length - 1]
 
     pusher = new Pusher('3466d56fe2ef1fdd2943')
-    channel = pusher.subscribe("channel_#{bucket}")
+    channel = pusher.subscribe("channel_emails_#{bucket}")
     channel.bind 'update_count', (count) ->
       try
         previousCount = $('#bucket-email-count').text()
