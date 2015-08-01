@@ -43,12 +43,9 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'therubyracer'
 gem 'mongoid', github: 'mongoid/mongoid', ref: '4893e77bb858'
 gem 'bson_ext'
-gem 'httparty'
 gem 'kaminari'
-gem 'rack-cors', require: 'rack/cors'
 gem 'redis'
 
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -59,7 +56,6 @@ group :production do
 end
 
 group :test do
-  gem 'webmock'
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara'
   gem 'poltergeist'
@@ -89,3 +85,4 @@ gem 'pusher'
 gem 'interactor', '~> 3.0'
 gem 'active_model_serializers'
 gem 'faker'
+gem 'react-rails', github: 'reactjs/react-rails'

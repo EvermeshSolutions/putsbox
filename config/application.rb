@@ -28,13 +28,6 @@ module PutsBox
     config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
     config.assets.precompile += %w[.svg .eot .woff .ttf]
 
-    config.middleware.use Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: %i[get post put patch delete options]
-      end
-    end
-
     config.to_prepare do
       Devise::SessionsController.layout 'devise'
     end

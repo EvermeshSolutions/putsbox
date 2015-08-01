@@ -7,7 +7,6 @@ end
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'webmock/rspec'
 require 'devise'
 
 require 'capybara/rails'
@@ -36,9 +35,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each(&method(:require))
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
-
-WebMock.disable_net_connect!(allow: 'codeclimate.com')
-WebMock.disable_net_connect!(allow: '127.0.0.1')
 
 RSpec.configure do |config|
   # ## Mock Framework
