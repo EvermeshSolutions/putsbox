@@ -40,7 +40,7 @@ RSpec.describe BucketsController, type: :controller do
       result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
       bucket = result.bucket
 
-      expect(bucket.emails.size).to eq(1)
+      expect(bucket.emails.count).to eq(1)
       expect(bucket.emails_count).to eq(1)
 
       delete :clear, token: bucket.token
@@ -56,14 +56,14 @@ RSpec.describe BucketsController, type: :controller do
         result = RecordEmail.call(token: token, email: email, owner_token: 'nonono')
         bucket = result.bucket
 
-        expect(bucket.emails.size).to eq(1)
+        expect(bucket.emails.count).to eq(1)
         expect(bucket.emails_count).to eq(1)
 
         delete :clear, token: bucket.token
 
         bucket.reload
 
-        expect(bucket.emails.size).to eq(1)
+        expect(bucket.emails.count).to eq(1)
         expect(bucket.emails_count).to eq(1)
         expect(response).to redirect_to(bucket_path(bucket.token))
       end
