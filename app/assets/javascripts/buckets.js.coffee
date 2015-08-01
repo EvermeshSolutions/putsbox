@@ -26,7 +26,7 @@ EmailCountPoller =
     favicon = new Favico(bgColor: '#6C92C8', animation: 'none')
     favicon.badge($('#bucket-email-count').text())
 
-    bucket = $('#putsbox-token-input').data('token')
+    bucket = $('#putsbox-token-input').data('bucket-id')
 
     pusher = new Pusher('3466d56fe2ef1fdd2943')
     channel = pusher.subscribe("channel_emails_#{bucket}")
