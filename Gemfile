@@ -61,6 +61,8 @@ end
 group :test do
   gem 'webmock'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'capybara'
+  gem 'poltergeist'
 end
 
 group :development do

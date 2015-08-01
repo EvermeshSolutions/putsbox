@@ -10,6 +10,20 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'devise'
 
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app,
+                                    js_errors: false,
+                                    timeout: 120,
+                                    phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'])
+end
+
+Capybara.javascript_driver = :poltergeist
+Capybara.default_wait_time = 5 # the default is 2 seconds
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -24,6 +38,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each(&method(:require))
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 WebMock.disable_net_connect!(allow: 'codeclimate.com')
+WebMock.disable_net_connect!(allow: '127.0.0.1')
 
 RSpec.configure do |config|
   # ## Mock Framework
