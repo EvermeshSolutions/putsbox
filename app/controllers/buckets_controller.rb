@@ -1,7 +1,7 @@
 class BucketsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i(record create)
 
-  before_filter :check_ownership!, only: %i[clear destroy]
+  before_filter :check_ownership!, only: %i(clear destroy)
 
   def create
     bucket = Bucket.create(owner_token: owner_token,
@@ -12,7 +12,6 @@ class BucketsController < ApplicationController
   end
 
   def clear
-    bucket = Bucket.find_by(token: params[:token])
     bucket.clear_history
 
     redirect_to bucket_path(bucket.token)

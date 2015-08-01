@@ -6,7 +6,6 @@ class EmailsController < ApplicationController
   before_action :redirect_from_root_domain
 
   def show
-    bucket = Bucket.find_by(token: params[:token])
     email = bucket.emails.find(params[:id])
 
     respond_to do |format|
