@@ -49,6 +49,7 @@
 <hr/>
 
 <% if @bucket.emails.any? %>
+  <p><em>Emails last 60 minutes</em></p>
   <%= render(partial: 'emails') %>
 <% else %>
   <%= show_no_emails_found(@bucket) %>

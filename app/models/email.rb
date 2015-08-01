@@ -16,7 +16,7 @@ class Email
 
   index bucket_id: 1, created_at: -1
 
-  index({ created_at: 1 }, { expire_after_seconds: 1.day })
+  index({ created_at: 1 }, { expire_after_seconds: 1.hour })
 
   validates :bucket, presence: true
 
