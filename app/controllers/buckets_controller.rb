@@ -42,10 +42,4 @@ class BucketsController < ApplicationController
 
     head :ok
   end
-
-  private
-
-  def bucket_params
-    params.require(:bucket).permit(:name)
-  end
 end

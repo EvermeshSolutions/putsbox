@@ -5,7 +5,6 @@ class Bucket
   belongs_to :user
 
   field :token
-  field :name
   field :owner_token
   field :last_email_at, type: Time
   field :first_email_at, type: Time
@@ -17,14 +16,6 @@ class Bucket
   has_many :emails, dependent: :destroy, order: :created_at.desc
 
   before_create :generate_token
-
-  def name
-    if (name = read_attribute(:name)).blank?
-      token
-    else
-      name
-    end
-  end
 
   def last_email
     emails.order(:created_at.desc).first

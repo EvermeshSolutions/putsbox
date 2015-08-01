@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe UpdateBucketStats do
-  let(:bucket) { Bucket.create(name: 'My Bucket') }
+  let(:bucket) { Bucket.create }
 
   before do
     now = Time.now

@@ -22,7 +22,7 @@
             <small>View and manage your buckets:</small>
             <ul class="tm5">
               <% @buckets.each do |bucket| %>
-                <li><%= link_to "#{bucket.name} (#{bucket.emails_count})", bucket_path(bucket.token) %></li>
+                <li><%= link_to "#{bucket.token} (#{bucket.emails_count})", bucket_path(bucket.token) %></li>
               <% end %>
             </ul>
           </div>
