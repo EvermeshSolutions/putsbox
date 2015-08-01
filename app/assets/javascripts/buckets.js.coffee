@@ -13,7 +13,7 @@ App.buckets['show'] = ->
   $(htmlBridge).attr 'title', tipsyConfig.title
 
   client.on 'complete', (client, args) ->
-    $('#putsbox-url-input').focus().blur()
+    $('#putsbox-token-input').focus().blur()
 
     $(htmlBridge).prop('title', tipsyConfig.copiedHint).tipsy 'show'
     $(htmlBridge).attr 'original-title', tipsyConfig.title
@@ -26,7 +26,7 @@ EmailCountPoller =
     favicon = new Favico(bgColor: '#6C92C8', animation: 'none')
     favicon.badge($('#bucket-email-count').text())
 
-    bucket = $('#putsbox-url-input').val().split('/')
+    bucket = $('#putsbox-token-input').data('token')
     bucket = bucket[bucket.length - 1]
 
     pusher = new Pusher('3466d56fe2ef1fdd2943')
