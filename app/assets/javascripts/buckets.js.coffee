@@ -27,7 +27,6 @@ EmailCountPoller =
     favicon.badge($('#bucket-email-count').text())
 
     bucket = $('#putsbox-token-input').data('token')
-    bucket = bucket[bucket.length - 1]
 
     pusher = new Pusher('3466d56fe2ef1fdd2943')
     channel = pusher.subscribe("channel_emails_#{bucket}")
@@ -38,8 +37,7 @@ EmailCountPoller =
         $('#bucket-email-count').text(count)
 
         favicon.badge(count)
-      catch
+      catch error
 
-
-      if parseInt(count, 10) > parseInt(previousCount, 10) && $('#new-requests-info #new-requests-received').length == 0
-        $('#new-requests-info').hide().append('<em><a id="new-requests-received" href="javascript:window.location.reload();">New requests received. Load newer requests?</a></em>').fadeIn('slow')
+      if parseInt(count, 10) > parseInt(previousCount, 10) && $('#new-emails-info #new-emails-received').length == 0
+        $('#new-emails-info').hide().append('<em><a id="new-emails-received" href="javascript:window.location.reload();">New emails received. Load newer emails?</a></em>').fadeIn('slow')
