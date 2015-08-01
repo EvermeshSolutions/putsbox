@@ -50,7 +50,13 @@
 
 <% if @bucket.emails.any? %>
   <p><em>Emails last 60 minutes</em></p>
-  <%= render(partial: 'emails') %>
+  <%# = render(partial: 'emails') %>
+
+  <%= react_component('Emails',
+                      bucketId: @bucket.id.to_s,
+                      bucketToken: @bucket.token,
+                      initialEmails: @bucket.emails,
+                      previewURLtemplate: email_url(@bucket.token, 'change-me')) %>
 <% else %>
   <%= show_no_emails_found(@bucket) %>
 <% end %>
