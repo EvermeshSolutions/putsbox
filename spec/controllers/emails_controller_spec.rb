@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe EmailsController do
+RSpec.describe EmailsController, type: :controller do
   render_views
 
   let(:mandrill_events) do

@@ -69,7 +69,7 @@ end
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-rails', '~> 3.3'
   gem 'rack-test'
   gem 'database_cleaner'
 end
