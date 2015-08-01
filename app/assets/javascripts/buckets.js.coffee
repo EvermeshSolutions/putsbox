@@ -1,8 +1,6 @@
 App.buckets ||= {}
 
 App.buckets['show'] = ->
-  App.buckets.initializeAce()
-
   ZeroClipboard.config
     moviePath: '/flash/ZeroClipboard.swf'
 
