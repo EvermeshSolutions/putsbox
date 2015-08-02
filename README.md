@@ -4,4 +4,4 @@
 
 ## PutsBox
 
-Email integration tests made easy. [Try it now](http://putsbox.com).
+PutsBox makes email integration tests easy. [Try it now](http://putsbox.com).
