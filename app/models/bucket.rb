@@ -6,9 +6,6 @@ class Bucket
 
   field :token
   field :owner_token
-  field :last_email_at, type: Time
-  field :first_email_at, type: Time
-  field :emails_count, type: Integer, default: 0
 
   index token: 1
   index owner_token: 1
@@ -17,13 +14,20 @@ class Bucket
 
   before_create :generate_token
 
-  def last_email
-    emails.order(:created_at.desc).first
+  def clear_history
+    emails.delete_all
   end
 
-  def clear_history
-    update_attributes last_email_at: nil, first_email_at: nil, emails_count: 0
-    emails.delete_all
+  def last_email_at
+    emails.order(:created_at.desc).first.try(:created_at)
+  end
+
+  def first_email_at
+    emails.order(:created_at.asc).first.try(:created_at)
+  end
+
+  def emails_count
+    emails.count
   end
 
   private
