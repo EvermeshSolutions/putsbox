@@ -27,33 +27,12 @@
 <%= render 'form' %>
 <hr/>
 
-<p id="new-emails-info"><!-- placeholder: New requests received. Load newer requests? --></p>
-
-<div class="row">
-  <div class="col-md-6">
-    <% if @bucket.first_email_at %>
-      <p>
-        <em>First email at: <%= @bucket.first_email_at %></br>
-        Last email at: <%= @bucket.last_email_at %></br>
-        <% if @bucket.last_email_at - @bucket.first_email_at > 0 %>
-          From first to last: <%= distance_of_time_in_words @bucket.first_email_at, @bucket.last_email_at, include_seconds: true %>
-        <% end %>
-        </em>
-      </p>
-    <% end %>
-  </div>
-  <div class="col-md-6"></div>
-</div>
-<p><%= paginate @emails %></p>
-
-<hr/>
-
-<% if @bucket.emails.any? %>
-  <p><em>Emails last 60 minutes</em></p>
-  <%= render(partial: 'emails') %>
-<% else %>
-  <%= show_no_emails_found(@bucket) %>
-<% end %>
+<%= react_component('Emails',
+                    bucketId: @bucket.id.to_s,
+                    bucketToken: @bucket.token,
+                    initialEmails: @bucket.emails.map { |e| EmailSerializer.new(e) },
+                    previewURLtemplate: email_url(@bucket.token, 'change-me'),
+                    bucketEmailsCount: @bucket.emails_count) %>
 
 <p><%= paginate @emails %></p>
 

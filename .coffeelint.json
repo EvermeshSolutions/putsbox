@@ -1,5 +1,8 @@
 {
   "max_line_length": {
     "value": 140
+  },
+  "no_backticks": {
+    "level": "ignore"
   }
 }

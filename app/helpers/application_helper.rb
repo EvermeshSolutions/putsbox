@@ -7,8 +7,4 @@ module ApplicationHelper
   def token_email(token)
     "#{token}@putsbox.com"
   end
-
-  def show_no_emails_found(bucket)
-    content_tag(:p, 'No emails received.')
-  end
 end
