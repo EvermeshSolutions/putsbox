@@ -20,6 +20,12 @@ App.buckets['show'] = ->
 
   EmailCountPoller.start()
 
+  do ->
+    favicon = new Favico(bgColor: '#6C92C8', animation: 'none')
+    favicon.badge $('#putsbox-token-input').data('bucket-emails-count')
+
+    $('body').on 'new-email', (e, data) -> favicon.badge data.emailsCount
+
 
 EmailCountPoller =
   start: ->
