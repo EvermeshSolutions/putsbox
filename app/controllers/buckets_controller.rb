@@ -24,7 +24,7 @@ class BucketsController < ApplicationController
   end
 
   def show
-    @emails = bucket.emails.page(params[:page]).per(20)
+    @emails = bucket.emails.page(params[:page]).per(50)
   end
 
   def record
