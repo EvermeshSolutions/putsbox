@@ -1,5 +1,5 @@
 class RecordEmail
   include Interactor::Organizer
 
-  organize CreateOrRetrieveBucket, CreateEmail, UpdateBucketStats, NotifyCount
+  organize CreateOrRetrieveBucket, CreateEmail, NotifyCount
 end
