@@ -48,7 +48,7 @@
           <th>From</th>
           <th>Subject</th>
           <th>Date</th>
-          <th>&nbsp;</th>
+          <th>Body</th>
         </tr>
       </thead>
       <tbody>

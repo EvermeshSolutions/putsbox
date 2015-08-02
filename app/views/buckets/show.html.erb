@@ -28,11 +28,11 @@
 <hr/>
 
 <%= react_component('Emails',
-                    bucketId: @bucket.id.to_s,
-                    bucketToken: @bucket.token,
-                    initialEmails: @bucket.emails.map { |e| EmailSerializer.new(e) },
-                    previewURLtemplate: email_url(@bucket.token, 'change-me'),
-                    bucketEmailsCount: @bucket.emails_count) %>
+                    { bucketId: @bucket.id.to_s,
+                      bucketToken: @bucket.token,
+                      initialEmails: @bucket.emails.map { |e| EmailSerializer.new(e) },
+                      previewURLtemplate: email_url(@bucket.token, 'change-me'),
+                      bucketEmailsCount: @bucket.emails_count }, { prerender: true }) %>
 
 <p><%= paginate @emails %></p>
 
