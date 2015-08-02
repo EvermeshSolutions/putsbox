@@ -10,7 +10,7 @@
       that = e.data.that
       that.setState emailsCount: data.emailsCount
 
-  componentwillunmount: ->
+  componentWillUnmount: ->
     $('body').off 'new-email'
 
   updateFavicon: ->
