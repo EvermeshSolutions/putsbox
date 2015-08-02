@@ -42,16 +42,19 @@
     `<p>No emails found.</p>`
 
   renderEmails: ->
-    `<table className="requests-header">
-      <thead>
-        <tr>
-          <th>From</th>
-          <th>Subject</th>
-          <th>Date</th>
-          <th>Body</th>
-        </tr>
-      </thead>
-      <tbody>
-        {this.emailRows()}
-      </tbody>
-    </table>`
+    `<div>
+      <p><em>Emails last 60 minutes</em></p>
+      <table className="requests-header">
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Body</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.emailRows()}
+        </tbody>
+      </table>
+    </div>`
