@@ -31,8 +31,6 @@ class BucketsController < ApplicationController
     JSON.parse(params['mandrill_events']).select { |event| event['event'] == 'inbound' }.each do |event|
       email_params = event['msg'].slice(*%w(headers from_email from_name to email subject text html raw_msg))
 
-      email_params['created_at'] = Time.at(event['ts'])
-
       RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''), email: Email.new(email_params))
     end
 
