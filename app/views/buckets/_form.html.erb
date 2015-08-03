@@ -8,7 +8,7 @@
       <h4>Emails
         <small><em>The number of emails received in this bucket.</em></small>
       </h4>
-      <%= react_component('EmailsCounter', { initialEmailsCount: @bucket.emails_count }, { prerender: true }) %>
+      <%= react_component('EmailsCounter', initialEmailsCount: @bucket.emails_count) %>
     </div>
   </div>
 
