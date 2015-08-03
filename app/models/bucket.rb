@@ -14,6 +14,8 @@ class Bucket
 
   before_create :generate_token
 
+  index({ updated_at: 1 }, { expire_after_seconds: 1.week })
+
   def clear_history
     emails.delete_all
   end

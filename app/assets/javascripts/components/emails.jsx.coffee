@@ -43,7 +43,7 @@
 
   renderEmails: ->
     `<div>
-      <p><em>Emails last 60 minutes</em></p>
+      <p><em>Emails last 15 minutes</em></p>
       <table className="requests-header">
         <thead>
           <tr>
