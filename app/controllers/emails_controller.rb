@@ -6,7 +6,11 @@ class EmailsController < ApplicationController
   before_action :redirect_from_root_domain
 
   def show
-    email = bucket.emails.find(params[:id])
+    email = if params[:id] == 'last'
+              bucket.emails.last
+            else
+              bucket.emails.find(params[:id])
+            end
 
     respond_to do |format|
       format.html { render inline: email.html }
