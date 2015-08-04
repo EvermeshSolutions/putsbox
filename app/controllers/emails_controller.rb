@@ -7,7 +7,7 @@ class EmailsController < ApplicationController
 
   def show
     email = if params[:id] == 'last'
-              bucket.emails.last
+              bucket.emails.order(:created_at.desc).first
             else
               bucket.emails.find(params[:id])
             end
