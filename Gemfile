@@ -59,6 +59,7 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara'
   gem 'poltergeist'
+  gem 'stub_env'
 end
 
 group :development do
