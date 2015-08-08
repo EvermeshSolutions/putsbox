@@ -12,6 +12,8 @@ class EmailsController < ApplicationController
               bucket.emails.find(params[:id])
             end
 
+    TrackPageView.call(request: request)
+
     respond_to do |format|
       format.html { render inline: email.html }
       format.text { render text: email.text }
