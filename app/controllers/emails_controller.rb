@@ -6,13 +6,13 @@ class EmailsController < ApplicationController
   before_action :redirect_from_root_domain
 
   def show
+    TrackPageView.call(request: request)
+
     email = if params[:id] == 'last'
               bucket.emails.order(:created_at.desc).first
             else
               bucket.emails.find(params[:id])
             end
-
-    TrackPageView.call(request: request)
 
     respond_to do |format|
       format.html { render inline: email.html }
