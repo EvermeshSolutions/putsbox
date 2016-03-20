@@ -28,13 +28,22 @@ class BucketsController < ApplicationController
   end
 
   def record
-    JSON.parse(params['mandrill_events']).select { |event| event['event'] == 'inbound' }.each do |event|
-      email_params = event['msg'].slice(*%w(headers from_email from_name to email subject text html raw_msg))
+    email_params = params.slice(*%w(headers subject text html))
 
-      RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''),
-                       email: Email.new(email_params),
-                       request: request)
-    end
+    # http://stackoverflow.com/a/14011481
+    from = params['from'].match(/(?:"?([^"]*)"?\s)?(?:<?(.+@[^>]+)>?)/)
+    email_params['from_name']  = from[1]
+    email_params['from_email'] = from[2]
+
+    envelope = JSON.parse(params['envelope'])
+    email_params['to']    = envelope['to'].to_a.dup
+    email_params['email'] = envelope['to'].select { |to| to.downcase.end_with? '@putsbox.com' }.first
+
+    email_params = email_params.permit(:headers, :from_email, :from_name, 'to[]', :subject, :text, :html, :subject, :email)
+
+    RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''),
+                     email: Email.new(email_params),
+                     request: request)
 
     head :ok
   end
