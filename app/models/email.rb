@@ -13,7 +13,6 @@ class Email
   field :subject
   field :text
   field :html
-  field :raw_msg
 
   index bucket_id: 1, created_at: -1
 

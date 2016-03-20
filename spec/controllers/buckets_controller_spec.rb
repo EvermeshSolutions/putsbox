@@ -15,8 +15,7 @@ RSpec.describe BucketsController, type: :controller do
         email: 'to@example.com',
         subject: 'Hello',
         text: 'Lorem Ipsum',
-        html: '<p>Lorem Ipsum</p>',
-        raw_msg: '...'
+        html: '<p>Lorem Ipsum</p>'
       }
     }.with_indifferent_access]
   end
