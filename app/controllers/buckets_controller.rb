@@ -39,7 +39,11 @@ class BucketsController < ApplicationController
     email_params['to']    = envelope['to'].to_a.dup
     email_params['email'] = envelope['to'].select { |to| to.downcase.end_with? '@putsbox.com' }.first
 
-    email_params = email_params.permit(:headers, :from_email, :from_name, 'to[]', :subject, :text, :html, :subject, :email)
+    if params['attachment-info'].present?
+      email_params['attachments'] = JSON.parse(params['attachment-info']).values
+    end
+
+    email_params = email_params.permit(:headers, :from_email, :from_name, :subject, :text, :html, :subject, :email, :attachments, to: [])
 
     RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''),
                      email: Email.new(email_params),

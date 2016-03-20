@@ -8,6 +8,7 @@ class Email
   field :from_email
   field :from_name
   field :to, type: Array
+  field :attachments, type: Array
   field :email
   field :subject
   field :text
