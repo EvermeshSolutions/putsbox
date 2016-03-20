@@ -43,7 +43,7 @@ class BucketsController < ApplicationController
       email_params['attachments'] = JSON.parse(params['attachment-info']).values
     end
 
-    email_params = email_params.permit(:headers, :from_email, :from_name, :subject, :text, :html, :subject, :email, :attachments, to: [])
+    email_params = email_params.permit(:headers, :from_email, :from_name, :subject, :text, :html, :subject, :email, to: [], attachments: [:filename, :name, :type])
 
     RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''),
                      email: Email.new(email_params),
