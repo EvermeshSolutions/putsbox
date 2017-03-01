@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  putsbox:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    hostname: putsbox
+    environment:
+      DEVISE_SECRET_KEY: "KIwdPMjRLCneUj5POWdxWoWFiMz0IHddZvG41JlI"
+      SECRET_TOKEN: "secret_token_blabla"
+    ports:
+     - "8081"
