@@ -15,8 +15,8 @@ class EmailsController < ApplicationController
             end
 
     respond_to do |format|
-      format.html { render inline: email.html }
-      format.text { render text: email.text }
+      format.html { render inline: email.html.to_s }
+      format.text { render text: email.text.to_s }
       format.json { render json: email }
     end
   end
