@@ -15,13 +15,28 @@ class EmailsController < ApplicationController
             end
 
     respond_to do |format|
-      format.html { render inline: email.html.to_s }
-      format.text { render text: email.text.to_s }
-      format.json { render json: email }
+      format.html { render_or_404(:html, email) }
+      format.text { render_or_404(:text, email) }
+      format.json { render_or_404(:json, email) }
     end
   end
 
   protected
+
+  def render_or_404(format, email)
+    case format
+    when :html
+      email.html ? render(inline: email.html) : render_404(format)
+    when :text
+      email.text ? render(text: email.text) : render_404(format)
+    when :json
+      render(json: email)
+    end
+  end
+
+  def render_404(format)
+    render inline: "This email does not have a #{format} version", status: 404
+  end
 
   def redirect_from_root_domain
     # To avoid XSS the email preview is under the preview subdomain,
