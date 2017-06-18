@@ -1,13 +1,21 @@
 class NotifyCount
   include Interactor
 
+  delegate :bucket, :email, to: :context
+  delegate :token, to: :bucket
+
   def call
-    return unless ENV['PUSHER_SECRET'] || ENV['PUSHER_APP_ID']
+    return unless ENV['PUSHER_URL']
 
-    Pusher.url = "http://3466d56fe2ef1fdd2943:#{ENV['PUSHER_SECRET']}@api.pusherapp.com/apps/#{ENV['PUSHER_APP_ID']}"
+    channel = Pusher["presence-channel_emails_#{token}"]
 
-    Pusher["channel_emails_#{context.bucket.id}"].trigger 'update_count', { emails_count: context.bucket.emails_count,
-                                                                            email: SimpleEmailSerializer.new(context.email) }
+    return if channel.users.empty?
+
+    channel.trigger(
+      'update_count',
+      emails_count: bucket.emails_count,
+      email: SimpleEmailSerializer.new(email)
+    )
   rescue => e
     Rails.logger.error(e)
   end
