@@ -29,7 +29,7 @@ App.buckets['show'] = ->
 
 EmailCountPoller =
   start: ->
-    bucket = $('#putsbox-token-input').data('bucket-id')
+    bucket = $('#putsbox-token-input').data('bucket-token')
 
     pusher = new Pusher('3466d56fe2ef1fdd2943')
 
