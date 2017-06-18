@@ -35,7 +35,7 @@ RSpec.describe BucketsController, type: :controller do
   end
 
   describe 'DELETE #clear' do
-    it 'clears history' do
+    specify do
       result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
       bucket = result.bucket
 
@@ -51,7 +51,7 @@ RSpec.describe BucketsController, type: :controller do
     end
 
     context 'when no onwer' do
-      it 'rejects the request' do
+      specify do
         result = RecordEmail.call(token: token, email: email, owner_token: 'nonono')
         bucket = result.bucket
 
@@ -70,7 +70,7 @@ RSpec.describe BucketsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'deletes a bucket' do
+    specify do
       result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
       bucket = result.bucket
 
@@ -82,7 +82,7 @@ RSpec.describe BucketsController, type: :controller do
     end
 
     context 'when no onwer' do
-      it 'rejects the request' do
+      specify do
         result = RecordEmail.call(token: token, email: email, owner_token: 'nonono')
         bucket = result.bucket
 
@@ -96,7 +96,7 @@ RSpec.describe BucketsController, type: :controller do
   end
 
   describe 'POST #create' do
-    it 'creates a new bucket' do
+    specify do
       expect {
         post :create
       }.to change(Bucket, :count).by(1)
@@ -106,7 +106,7 @@ RSpec.describe BucketsController, type: :controller do
   end
 
   describe 'GET #show' do
-    it 'shows a bucket' do
+    specify do
       result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
       bucket = result.bucket
 
@@ -116,10 +116,15 @@ RSpec.describe BucketsController, type: :controller do
       expect(assigns(:emails).to_a).to eq(bucket.emails.to_a)
     end
 
-    it 'renders not found' do
-      expect {
-        get :show, token: 'nonono'
-      }.to raise_error(Mongoid::Errors::DocumentNotFound)
+    context 'when not found' do
+      it 'creates a new bucket' do
+        token = 'not-found'
+        expect {
+          get :show, token: token
+
+          expect(assigns(:bucket)).to eq(Bucket.find_by(token: token))
+        }.to change(Bucket, :count).by(1)
+      end
     end
   end
 end

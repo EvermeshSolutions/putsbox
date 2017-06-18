@@ -1,13 +1,17 @@
 class CreateOrRetrieveBucket
   include Interactor
 
+  delegate :token, :owner_token, :user_id, to: :context
+
   def call
-    if context.token && (bucket = (Bucket.find_by(token: context.token) rescue nil))
+    if (bucket = Bucket.where(token: token).first)
       return context.bucket = bucket
     end
 
-    new_bucket = { owner_token: context.owner_token, user_id: context.user_id, token: context.token }
-
-    context.bucket = Bucket.create(new_bucket)
+    context.bucket = Bucket.create(
+      owner_token: owner_token,
+      user_id: user_id,
+      token: token
+    )
   end
 end

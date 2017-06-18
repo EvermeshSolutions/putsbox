@@ -2,18 +2,22 @@ require 'spec_helper'
 
 RSpec.describe CreateOrRetrieveBucket do
   describe '#call' do
-    it 'creates a bucket' do
+    specify do
       expect {
-        described_class.call(token: 'new_token')
+        result = described_class.call!(token: 'new_token')
+
+        expect(result.bucket).to be
       }.to change(Bucket, :count).by(1)
     end
 
     context 'when existing bucket' do
       let!(:bucket) { Bucket.create }
 
-      it 'returns a bucket' do
+      specify do
         expect {
-          described_class.call(token: bucket.token)
+          result = described_class.call!(token: bucket.token)
+
+          expect(result.bucket).to eq(bucket)
         }.to_not change(Bucket, :count)
       end
     end
