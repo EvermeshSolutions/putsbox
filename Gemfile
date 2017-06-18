@@ -72,6 +72,7 @@ group :development, :test do
   gem 'rack-test'
   gem 'database_cleaner'
   gem 'dotenv-rails'
+  gem 'webmock'
 end
 
 source 'https://rails-assets.org' do
