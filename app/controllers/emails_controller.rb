@@ -26,11 +26,11 @@ class EmailsController < ApplicationController
   def render_or_404(format, email)
     case format
     when :html
-      email.html ? render(inline: email.html) : render_404(format)
+      email&.html ? render(inline: email.html) : render_404(format)
     when :text
-      email.text ? render(text: email.text) : render_404(format)
+      email&.text ? render(text: email.text) : render_404(format)
     when :json
-      render(json: email)
+      email ? render(json: email) : render_404(format)
     end
   end
 
