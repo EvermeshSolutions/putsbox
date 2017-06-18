@@ -36,6 +36,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each(&method(:require))
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
+Mongo::Logger.logger.level = ::Logger::FATAL
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
