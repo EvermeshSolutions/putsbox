@@ -100,6 +100,8 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kaminari-mongoid (0.1.2)
+      kaminari
     kgio (2.9.3)
     mail (2.5.5)
       mime-types (~> 1.16)
@@ -276,7 +278,7 @@ DEPENDENCIES
   interactor (~> 3.0)
   jbuilder (~> 1.2)
   jquery-rails
-  kaminari
+  kaminari-mongoid
   mongoid
   oj (~> 2.12.14)
   poltergeist

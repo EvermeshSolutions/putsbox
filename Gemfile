@@ -45,7 +45,7 @@ end
 
 gem 'mongoid' # , github: 'mongoid/mongoid', ref: '4893e77bb858'
 gem 'bson_ext'
-gem 'kaminari'
+gem 'kaminari-mongoid'
 gem 'redis'
 
 gem 'bootstrap-sass', '~> 3.1.1'
