@@ -113,6 +113,7 @@ GEM
     multi_json (1.11.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oj (2.12.14)
     origin (2.1.1)
     orm_adapter (0.5.0)
     poltergeist (1.6.0)
@@ -174,6 +175,8 @@ GEM
     redis (3.2.1)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rollbar (2.15.0)
+      multi_json
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -264,6 +267,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mongoid
+  oj (~> 2.12.14)
   poltergeist
   pry-byebug
   pusher
@@ -277,6 +281,7 @@ DEPENDENCIES
   rails_12factor
   react-rails
   redis
+  rollbar
   rspec-rails (~> 3.3)
   sass-rails (~> 4.0.2)
   sdoc
