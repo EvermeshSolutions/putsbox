@@ -33,7 +33,7 @@ EmailCountPoller =
 
     pusher = new Pusher('3466d56fe2ef1fdd2943')
 
-    channel = pusher.subscribe("presence-channel_emails_#{bucket}")
+    channel = pusher.subscribe("channel_emails_#{bucket}")
 
     channel.bind 'update_count', (data) ->
       $('body').trigger('new-email', email: data.email, emailsCount: data.emails_count)
