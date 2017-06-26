@@ -49,24 +49,6 @@ RSpec.describe BucketsController, type: :controller do
       expect(bucket.emails).to be_empty
       expect(bucket.emails_count).to eq(0)
     end
-
-    context 'when no onwer' do
-      specify do
-        result = RecordEmail.call(token: token, email: email, owner_token: 'nonono')
-        bucket = result.bucket
-
-        expect(bucket.emails.count).to eq(1)
-        expect(bucket.emails_count).to eq(1)
-
-        delete :clear, token: bucket.token
-
-        bucket.reload
-
-        expect(bucket.emails.count).to eq(1)
-        expect(bucket.emails_count).to eq(1)
-        expect(response).to redirect_to(bucket_path(bucket.token))
-      end
-    end
   end
 
   describe 'DELETE #destroy' do
@@ -79,19 +61,6 @@ RSpec.describe BucketsController, type: :controller do
       }.to change(Bucket, :count).by(-1)
 
       expect(response).to redirect_to(root_url)
-    end
-
-    context 'when no onwer' do
-      specify do
-        result = RecordEmail.call(token: token, email: email, owner_token: 'nonono')
-        bucket = result.bucket
-
-        expect {
-          delete :destroy, token: bucket.token
-        }.to_not change(Bucket, :count)
-
-        expect(response).to redirect_to(bucket_path(bucket.token))
-      end
     end
   end
 

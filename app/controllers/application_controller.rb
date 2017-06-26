@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :is_owner?
+  helper_method :owner?
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -21,12 +21,14 @@ class ApplicationController < ActionController::Base
   end
 
   def check_ownership!
-    unless is_owner?(bucket)
+    unless owner?(bucket)
       redirect_to bucket_path(bucket.token), alert: 'Only the bucket owner can perform this operation'
     end
   end
 
-  def is_owner?(bucket)
+  def owner?(bucket)
+    return true unless bucket.user
+
     owner_token == bucket.owner_token || (user_signed_in? && bucket.user == current_user)
   end
 
