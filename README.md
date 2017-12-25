@@ -5,3 +5,8 @@
 ## PutsBox
 
 PutsBox makes email integration tests easy. [Try it now](http://putsbox.com).
+
+
+## Getting Started
+
+For setting up PutsBox locally, please follow the [PutsReq Getting Started instructions](https://github.com/phstc/putsreq/blob/master/README.md#getting-started). With the difference that PutsBox needs [Inbound Email Parse Webhook](https://sendgrid.com/docs/API_Reference/Webhooks/inbound_email.html) configured for receiving emails.
