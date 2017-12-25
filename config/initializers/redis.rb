@@ -1,17 +1,16 @@
 class SafeRedis
   def initialize
-    uri = URI.parse ENV['REDISTOGO_URL']
     @redis = Redis.new url: ENV['REDISTOGO_URL']
-  rescue => e
+  rescue => ex
     # bad URI(is not URI?):  (URI::InvalidURIError)
-    Rails.logger.error e
+    Rollbar.error(ex)
   end
 
   def method_missing(method, *args, &block)
     @redis.send method, *args, &block
-  rescue => e
+  rescue => ex
     # Redis specific exceptions i.e. ECONNREFUSED
-    Rails.logger.error e
+    Rollbar.error(ex)
   end
 end
 

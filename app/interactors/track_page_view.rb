@@ -16,8 +16,8 @@ class TrackPageView
     tracker = Staccato.tracker(ENV['GA'], nil, options)
 
     tracker.pageview(title: bucket.token)
-  rescue => e
-    Rails.logger.error(e)
+  rescue => ex
+    Rollbar.error(ex)
   end
 
   private

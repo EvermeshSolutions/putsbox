@@ -14,7 +14,7 @@ class NotifyCount
       emails_count: bucket.emails_count,
       email: SimpleEmailSerializer.new(email)
     )
-  rescue => e
-    Rails.logger.error(e)
+  rescue => ex
+    Rollbar.error(ex)
   end
 end
