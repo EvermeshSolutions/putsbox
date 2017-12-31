@@ -1,5 +1,6 @@
 if ENV['CODECLIMATE_REPO_TOKEN']
   require 'simplecov'
+  SimpleCov.start
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
@@ -15,9 +16,9 @@ require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app,
-                                    js_errors: false,
-                                    timeout: 120,
-                                    phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'])
+    js_errors: false,
+    timeout: 120,
+    phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'])
 end
 
 Capybara.javascript_driver = :poltergeist
