@@ -45,7 +45,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.before do
-    stub_request(:get, /pusherapp.com/)
+    stub_request(:get, /pusher.com/)
   end
 
   config.before(:suite) do
