@@ -1,6 +1,6 @@
-@EmailsCounter = React.createClass
+@EmailsCounter = createReactClass
   propTypes:
-    initialEmailsCount: React.PropTypes.number.isRequired
+    initialEmailsCount: PropTypes.number.isRequired
 
   getInitialState: ->
     emailsCount: @props.initialEmailsCount

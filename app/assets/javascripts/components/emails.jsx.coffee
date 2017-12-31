@@ -1,10 +1,10 @@
-@Emails = React.createClass
+@Emails = createReactClass
   propTypes:
-    initialEmails: React.PropTypes.array.isRequired
-    bucketId: React.PropTypes.string.isRequired
-    bucketToken: React.PropTypes.string.isRequired
-    bucketEmailsCount: React.PropTypes.number.isRequired
-    previewURLtemplate: React.PropTypes.string.isRequired
+    initialEmails: PropTypes.array.isRequired
+    bucketId: PropTypes.string.isRequired
+    bucketToken: PropTypes.string.isRequired
+    bucketEmailsCount: PropTypes.number.isRequired
+    previewURLtemplate: PropTypes.string.isRequired
 
   getInitialState: ->
     emails: @props.initialEmails
