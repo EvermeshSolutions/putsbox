@@ -28,7 +28,7 @@ class EmailsController < ApplicationController
     when :html
       email&.html ? render(inline: email.html) : render_404(format)
     when :text
-      email&.text ? render(text: email.text) : render_404(format)
+      email&.text ? render(plain: email.text) : render_404(format)
     when :json
       email ? render(json: email) : render_404(format)
     end

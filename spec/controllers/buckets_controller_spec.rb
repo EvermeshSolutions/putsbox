@@ -42,7 +42,7 @@ RSpec.describe BucketsController, type: :controller do
       expect(bucket.emails.count).to eq(1)
       expect(bucket.emails_count).to eq(1)
 
-      delete :clear, token: bucket.token
+      delete :clear, params: { token: bucket.token }
 
       bucket.reload
 
@@ -57,7 +57,7 @@ RSpec.describe BucketsController, type: :controller do
       bucket = result.bucket
 
       expect {
-        delete :destroy, token: bucket.token
+        delete :destroy, params: { token: bucket.token }
       }.to change(Bucket, :count).by(-1)
 
       expect(response).to redirect_to(root_url)
@@ -79,7 +79,7 @@ RSpec.describe BucketsController, type: :controller do
       result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
       bucket = result.bucket
 
-      get :show, token: bucket.token
+      get :show, params: { token: bucket.token }
 
       expect(assigns(:bucket)).to eq(bucket)
       expect(assigns(:emails).to_a).to eq(bucket.emails.to_a)
@@ -89,7 +89,7 @@ RSpec.describe BucketsController, type: :controller do
       it 'creates a new bucket' do
         token = 'not-found'
         expect {
-          get :show, token: token
+          get :show, params: { token: token }
 
           expect(assigns(:bucket)).to eq(Bucket.find_by(token: token))
         }.to change(Bucket, :count).by(1)

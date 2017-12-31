@@ -43,7 +43,7 @@ RSpec.describe EmailsController, type: :controller do
   describe 'GET #show' do
     context 'when format text' do
       it 'renders text' do
-        get :show, token: bucket.token, id: email.id.to_s, format: :text, subdomain: 'preview'
+        get :show, params: { token: bucket.token, id: email.id.to_s, format: :text, subdomain: 'preview' }
 
         expect(response.body).to eq(email.text)
       end
@@ -51,7 +51,7 @@ RSpec.describe EmailsController, type: :controller do
 
     context 'when format HTML' do
       it 'renders HTML' do
-        get :show, token: bucket.token, id: email.id.to_s, format: :html, subdomain: 'preview'
+        get :show, params: { token: bucket.token, id: email.id.to_s, format: :html, subdomain: 'preview' }
 
         expect(response.body).to eq(email.html)
       end
@@ -59,7 +59,7 @@ RSpec.describe EmailsController, type: :controller do
 
     context 'when format JSON' do
       it 'renders JSON' do
-        get :show, token: bucket.token, id: email.id.to_s, format: :json, subdomain: 'preview'
+        get :show, params: { token: bucket.token, id: email.id.to_s, format: :json, subdomain: 'preview' }
 
         expect(response.body).to eq(EmailSerializer.new(email).to_json)
       end
@@ -69,7 +69,7 @@ RSpec.describe EmailsController, type: :controller do
       it 'renders last' do
         result = RecordEmail.call(token: token, email: email, owner_token: owner_token)
 
-        get :show, token: bucket.token, id: 'last', format: :json, subdomain: 'preview'
+        get :show, params: { token: bucket.token, id: 'last', format: :json, subdomain: 'preview' }
 
         expect(JSON.parse(response.body)['id']).to eq(result.email.id.to_s)
       end

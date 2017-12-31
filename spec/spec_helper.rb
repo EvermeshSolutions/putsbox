@@ -22,7 +22,7 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = 5 # the default is 2 seconds
+Capybara.default_max_wait_time = 5 # the default is 2 seconds
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -61,6 +61,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include StubEnv::Helpers
 end

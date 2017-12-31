@@ -15,7 +15,7 @@
 //= require bootstrap
 //= require jquery.tipsy
 //= require clipboard
-//= require favico.js
+//= require favico.js.js
 //
 //= require dispatcher
 //= require initializers

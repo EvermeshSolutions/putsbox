@@ -15,7 +15,7 @@ RSpec.describe 'Record Email', type: :request do
 
   it 'creates a new bucket' do
     expect {
-      post '/record', inbound_params
+      post '/record', params: inbound_params
     }.to change(Bucket, :count).by(1)
 
     expect(response).to be_ok
@@ -26,7 +26,7 @@ RSpec.describe 'Record Email', type: :request do
 
     it 'updates a bucket' do
       expect {
-        post '/record', inbound_params
+        post '/record', params: inbound_params
       }.to change(Bucket, :count).by(0)
 
       expect(bucket.reload.emails_count).to eq(1)
