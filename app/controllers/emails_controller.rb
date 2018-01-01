@@ -6,7 +6,7 @@ class EmailsController < ApplicationController
   before_action :redirect_from_root_domain
 
   def show
-    TrackPageView.call(request: request)
+    TrackPageView.call!(request: request, bucket: bucket)
 
     email = if params[:id] == 'last'
               bucket.emails.order(:created_at.desc).first
