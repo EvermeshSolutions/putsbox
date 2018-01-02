@@ -47,8 +47,8 @@ class BucketsController < ApplicationController
 
     # See https://rollbar.com/putsbox/putsbox/items/15
     # request.POST.charsets	{"to":"UTF-8","html":"us-ascii","subject":"UTF-8","from":"UTF-8","text":"us-ascii"}
-    email_params[:text] = email_params[:text].encode('UTF-8')
-    email_params[:html] = email_params[:html].encode('UTF-8')
+    email_params[:text] = email_params[:text].encode('UTF-8') if email_params[:text]
+    email_params[:html] = email_params[:html].encode('UTF-8') if email_params[:html]
 
     RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''),
                      email: Email.new(email_params),
