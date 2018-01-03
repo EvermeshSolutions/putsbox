@@ -65,11 +65,13 @@ class BucketsController < ApplicationController
     email.text = encode_body(email_params, :text)
     email.html = encode_body(email_params, :html)
 
-    RecordEmail.call!(
-      token: email_params['email'].gsub(/\@.*/, ''),
-      email: email,
-      request: request
-    )
+    if email.text.to_s.encoding == Encoding::UTF_8 && email.html.to_s.encoding == Encoding::UTF_8
+      RecordEmail.call!(
+        token: email_params['email'].gsub(/\@.*/, ''),
+        email: email,
+        request: request
+      )
+    end
 
     head :ok
   end
