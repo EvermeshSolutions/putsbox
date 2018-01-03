@@ -33,7 +33,12 @@ class BucketsController < ApplicationController
     email_params = params.slice(*%w(headers subject text html))
 
     # http://stackoverflow.com/a/14011481
-    from = params['from'].match(/(?:"?([^"]*)"?\s)?(?:<?(.+@[^>]+)>?)/)
+    from = encode_body(params, 'from')
+
+    return head :ok unless from.valid_encoding?
+
+    from = from.match(/(?:"?([^"]*)"?\s)?(?:<?(.+@[^>]+)>?)/)
+
     email_params['from_name']  = from[1]
     email_params['from_email'] = from[2]
 
@@ -44,6 +49,11 @@ class BucketsController < ApplicationController
     if params['attachment-info'].present?
       email_params['attachments'] = JSON.parse(params['attachment-info']).values
     end
+
+    email_params['text'] = encode_body(email_params, 'text')
+    email_params['html'] = encode_body(email_params, 'html')
+
+    return head :ok if !email_params['text'].to_s.valid_encoding? || !email_params['html'].to_s.valid_encoding?
 
     email_params = email_params.permit(
       :headers,
@@ -61,27 +71,18 @@ class BucketsController < ApplicationController
 
     # See https://rollbar.com/putsbox/putsbox/items/15
     # request.POST.charsets	{"to":"UTF-8","html":"us-ascii","subject":"UTF-8","from":"UTF-8","text":"us-ascii"}
-    email = Email.new(email_params)
-    email.text = encode_body(email_params, :text)
-    email.html = encode_body(email_params, :html)
-
-    if email.text.to_s.encoding == Encoding::UTF_8 &&
-        email.text.to_s.valid_encoding? &&
-        email.html.to_s.encoding == Encoding::UTF_8 &&
-        email.html.to_s.valid_encoding?
-      RecordEmail.call!(
-        token: email_params['email'].gsub(/\@.*/, ''),
-        email: email,
-        request: request
-      )
-    end
+    RecordEmail.call!(
+      token: email_params['email'].gsub(/\@.*/, ''),
+      email: Email.new(email_params),
+      request: request
+    )
 
     head :ok
   end
 
   def encode_body(params, key)
-    return params[key] if params[key].nil? || params[:charsets].to_h[key].nil?
+    return nil unless params[key]
 
-    params[key].encode(params[:charsets][key]).force_encoding(Encoding::UTF_8)
+    params[key].to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
   end
 end
