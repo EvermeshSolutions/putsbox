@@ -32,7 +32,7 @@ class BucketsController < ApplicationController
   def record
     email_params = params.slice(*%w(headers subject text html))
 
-    charsets = JSON.parse(params['charsets']).to_h
+    charsets = JSON.parse(params['charsets'])
 
     # http://stackoverflow.com/a/14011481
     from = encode_body(params, 'from', charsets)

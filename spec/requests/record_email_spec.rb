@@ -7,9 +7,10 @@ RSpec.describe 'Record Email', type: :request do
       from: 'John <from@example.com>',
       to: ['to@putsbox.com'],
       subject: 'Hello',
-      text: 'Lorem Ipsum',
+      text: 'Lorem Ipsum áéíóú',
       html: '<p>Lorem Ipsum</p>',
-      envelope: { to: ['to@putsbox.com'], from: 'from@example.com' }.to_json
+      envelope: { to: ['to@putsbox.com'], from: 'from@example.com' }.to_json,
+      charsets: { to: 'UTF-8', from: 'UTF-8', subject: 'UTF-8', html: 'UTF-8', text: 'iso-8859-1' }.to_json
     }.with_indifferent_access
   end
 
