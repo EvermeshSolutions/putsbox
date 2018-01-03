@@ -32,8 +32,10 @@ class BucketsController < ApplicationController
   def record
     email_params = params.slice(*%w(headers subject text html))
 
+    charsets = JSON.parse(params['charsets']).to_h
+
     # http://stackoverflow.com/a/14011481
-    from = encode_body(params, 'from')
+    from = encode_body(params, 'from', charsets)
 
     return head :ok unless from.valid_encoding?
 
@@ -50,8 +52,8 @@ class BucketsController < ApplicationController
       email_params['attachments'] = JSON.parse(params['attachment-info']).values
     end
 
-    email_params['text'] = encode_body(email_params, 'text')
-    email_params['html'] = encode_body(email_params, 'html')
+    email_params['text'] = encode_body(email_params, 'text', charsets)
+    email_params['html'] = encode_body(email_params, 'html', charsets)
 
     return head :ok if !email_params['text'].to_s.valid_encoding? || !email_params['html'].to_s.valid_encoding?
 
@@ -80,9 +82,9 @@ class BucketsController < ApplicationController
     head :ok
   end
 
-  def encode_body(params, key)
-    return params[key] if params[key].nil? || params[:charsets].to_h[key].nil?
+  def encode_body(params, key, charsets)
+    return params[key] if params[key].nil? || charsets[key].nil?
 
-    params[key].to_s.encode('UTF-8', params[:charsets][key], invalid: :replace, undef: :replace, replace: '')
+    params[key].to_s.encode('UTF-8', charsets[key], invalid: :replace, undef: :replace, replace: '')
   end
 end
