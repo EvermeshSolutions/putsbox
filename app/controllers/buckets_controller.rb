@@ -81,8 +81,8 @@ class BucketsController < ApplicationController
   end
 
   def encode_body(params, key)
-    return nil unless params[key]
+    return params[key] if params[key].nil? || params[:charsets].to_h[key].nil?
 
-    params[key].to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    params[key].to_s.encode('UTF-8', params[:charsets][key], invalid: :replace, undef: :replace, replace: '')
   end
 end
