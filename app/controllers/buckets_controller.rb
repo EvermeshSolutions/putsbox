@@ -4,9 +4,11 @@ class BucketsController < ApplicationController
   before_action :check_ownership!, only: %i(clear destroy)
 
   def create
-    bucket = Bucket.create(owner_token: owner_token,
-                           user_id: current_user.try(:id),
-                           token: params[:token])
+    bucket = Bucket.create(
+      owner_token: owner_token,
+      user_id: current_user&.id,
+      token: params[:token]
+    )
 
     redirect_to bucket_path(bucket.token)
   end
@@ -59,19 +61,22 @@ class BucketsController < ApplicationController
 
     # See https://rollbar.com/putsbox/putsbox/items/15
     # request.POST.charsets	{"to":"UTF-8","html":"us-ascii","subject":"UTF-8","from":"UTF-8","text":"us-ascii"}
-    set_encoding!(email_params, :text)
-    set_encoding!(email_params, :html)
+    email = Email.new(email_params)
+    email.text = encode_body(email_params, :text)
+    email.html = encode_body(email_params, :html)
 
-    RecordEmail.call(token: email_params['email'].gsub(/\@.*/, ''),
-                     email: Email.new(email_params),
-                     request: request)
+    RecordEmail.call!(
+      token: email_params['email'].gsub(/\@.*/, ''),
+      email: email,
+      request: request
+    )
 
     head :ok
   end
 
-  def set_encoding!(params, key)
-    return if params[key].nil? || params[:charsets].to_h[key].nil?
+  def encode_body(params, key)
+    return params[key] if params[key].nil? || params[:charsets].to_h[key].nil?
 
-    params[key] = params[key].encode(params[:charsets][key]).force_encoding(Encoding::UTF_8)
+    params[key].encode(params[:charsets][key]).force_encoding(Encoding::UTF_8)
   end
 end
