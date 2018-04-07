@@ -10,3 +10,15 @@ PutsBox makes email integration tests easy. [Try it now](http://putsbox.com).
 ## Getting Started
 
 For setting up PutsBox locally, please follow the [PutsReq Getting Started instructions](https://github.com/phstc/putsreq/blob/master/README.md#getting-started). With the difference that PutsBox needs [Inbound Email Parse Webhook](https://sendgrid.com/docs/API_Reference/Webhooks/inbound_email.html) configured for receiving emails.
+
+### Production
+
+In production (Heroku), PutsReq runs on mLab sandbox, with a storage of 496 MB. For avoiding getting exceeding the capacity, the `emails` collection must be converted into capped collections.
+
+```
+db.runCommand({ "convertToCapped": "emails",  size: 20000000 });
+```
+
+### License
+
+Please see [LICENSE](https://github.com/phstc/putsbox/blob/master/LICENSE) for licensing details.
