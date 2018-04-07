@@ -13,7 +13,7 @@ For setting up PutsBox locally, please follow the [PutsReq Getting Started instr
 
 ### Production
 
-In production (Heroku), PutsReq runs on mLab sandbox, with a storage of 496 MB. For avoiding getting exceeding the capacity, the `emails` collection must be converted into capped collections.
+In production (Heroku), PutsBox runs on mLab sandbox, with a storage of 500 MB. For avoiding getting exceeding the capacity, the `emails` collection must be converted into capped collections.
 
 ```
 db.runCommand({ "convertToCapped": "emails",  size: 20000000 });
