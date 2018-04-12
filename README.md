@@ -13,10 +13,14 @@ For setting up PutsBox locally, please follow the [PutsReq Getting Started instr
 
 ### Production
 
-In production (Heroku), PutsBox runs on mLab sandbox, with a storage of 500 MB. For avoiding getting exceeding the capacity, the `emails` collection must be converted into capped collections.
+Auto expire (remove) buckets and emails.
+
+- 86400 = 1 day
+- 600 = 15 minutes
 
 ```
-db.runCommand({ "convertToCapped": "emails",  size: 20000000 });
+db.buckets.createIndex({ "updated_at": 1 }, { expireAfterSeconds: 86400 })
+db.emails.createIndex({ "created_at": 1 }, { expireAfterSeconds: 600 })
 ```
 
 ### License
