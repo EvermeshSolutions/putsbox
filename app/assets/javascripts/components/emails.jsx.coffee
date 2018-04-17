@@ -43,6 +43,7 @@
 
   renderEmails: ->
     `<div>
+      <p><em>Emails expire in 15 minutes</em></p>
       <table className="requests-header">
         <thead>
           <tr>
