@@ -44,10 +44,6 @@ WebMock.disable_net_connect!(allow: 'codeclimate.com')
 RSpec.configure do |config|
   config.order = 'random'
 
-  config.before do
-    stub_request(:get, /pusher.com/)
-  end
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
