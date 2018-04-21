@@ -8,8 +8,13 @@ class BucketsController < ApplicationController
   def requests_count
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, event: 'requests_count')
+
+    emails = Email.gte(updated_at: 6.seconds.ago).to_a.map do |email|
+      SimpleEmailSerializer.new(email)
+    end
+
     begin
-      sse.write(requests_count: bucket.requests.count)
+      sse.write(emails_count: bucket.emails.count, emails: emails)
     rescue ClientDisconnected
     ensure
       sse.close

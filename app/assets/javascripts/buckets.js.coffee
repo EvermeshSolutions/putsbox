@@ -26,5 +26,5 @@ emailCountPoller = ->
   source = new EventSource("/#{bucket}/requests_count")
   source.addEventListener('requests_count', (event) ->
     data = JSON.parse(event.data)
-    $('body').trigger('new-email', email: data.email, emailsCount: data.emails_count)
+    $('body').trigger('new-email', emails: data.emails, emailsCount: data.emails_count)
   )
