@@ -9,7 +9,7 @@ class BucketsController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, event: 'emails_count')
 
-    emails = Email.gte(updated_at: 6.seconds.ago).to_a.map do |email|
+    emails = bucket.emails.gte(updated_at: 6.seconds.ago).to_a.map do |email|
       SimpleEmailSerializer.new(email)
     end
 

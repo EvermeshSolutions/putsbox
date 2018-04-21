@@ -12,11 +12,11 @@
   componentDidMount: ->
     $('body').on 'new-email', that: @, (e, data) ->
       that = e.data.that
-      that.setState emails: mergeEmails(data.emails, that.state.emails)
+      that.setState emails: that.mergeEmails(data.emails, that.state.emails)
 
   mergeEmails: (newEmails, oldEmails) ->
     for email in newEmails
-      unless emailExists(oldEmails, email.id)
+      unless @emailExists(oldEmails, email.id)
         oldEmails.push(email)
 
     oldEmails
