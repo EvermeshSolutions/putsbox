@@ -12,7 +12,21 @@
   componentDidMount: ->
     $('body').on 'new-email', that: @, (e, data) ->
       that = e.data.that
-      that.setState emails: [data.email].concat(that.state.emails)
+      that.setState emails: mergeEmails(data.emails, that.state.emails)
+
+  mergeEmails: (newEmails, oldEmails) ->
+    for email in newEmails
+      unless emailExists(oldEmails, email.id)
+        oldEmails.push(email)
+
+    oldEmails
+
+  emailExists: (emails, id) ->
+    for email in emails
+      if email.id == id
+        return true
+
+    false
 
   componentwillunmount: ->
     $('body').off 'new-email'

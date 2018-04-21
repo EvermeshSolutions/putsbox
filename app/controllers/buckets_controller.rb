@@ -1,7 +1,25 @@
 class BucketsController < ApplicationController
+  include ActionController::Live
+
   skip_before_action :verify_authenticity_token, only: %i[record create]
 
   before_action :check_ownership!, only: %i[clear destroy]
+
+  def requests_count
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = SSE.new(response.stream, event: 'requests_count')
+
+    emails = Email.gte(updated_at: 6.seconds.ago).to_a.map do |email|
+      SimpleEmailSerializer.new(email)
+    end
+
+    begin
+      sse.write(emails_count: bucket.emails.count, emails: emails)
+    rescue ClientDisconnected
+    ensure
+      sse.close
+    end
+  end
 
   def create
     bucket = Bucket.create(
