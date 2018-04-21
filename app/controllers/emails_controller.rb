@@ -42,7 +42,7 @@ class EmailsController < ApplicationController
     # To avoid XSS the email preview is under the preview subdomain,
     # which does not share the session with the root domain
     # This check makes sure users don't navigate on preview using the root domain
-    unless request.url =~ /^#{request.protocol}preview\./
+    unless /^#{request.protocol}preview\./.match?(request.url)
       redirect_to request.url.gsub(request.protocol, "#{request.protocol}preview.")
     end
   end

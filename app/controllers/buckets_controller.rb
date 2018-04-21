@@ -1,7 +1,7 @@
 class BucketsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i(record create)
+  skip_before_action :verify_authenticity_token, only: %i[record create]
 
-  before_action :check_ownership!, only: %i(clear destroy)
+  before_action :check_ownership!, only: %i[clear destroy]
 
   def create
     bucket = Bucket.create(
@@ -30,7 +30,7 @@ class BucketsController < ApplicationController
   end
 
   def record
-    email_params = params.slice(*%w(headers subject text html))
+    email_params = params.slice('headers', 'subject', 'text', 'html')
 
     charsets = JSON.parse(params['charsets'])
 
@@ -48,9 +48,7 @@ class BucketsController < ApplicationController
     email_params['to']    = envelope['to'].to_a.dup
     email_params['email'] = envelope['to'].select { |to| to.downcase.end_with? '@putsbox.com' }.first
 
-    if params['attachment-info'].present?
-      email_params['attachments'] = JSON.parse(params['attachment-info']).values
-    end
+    email_params['attachments'] = JSON.parse(params['attachment-info']).values if params['attachment-info'].present?
 
     email_params['text'] = encode_body(email_params, 'text', charsets)
     email_params['html'] = encode_body(email_params, 'html', charsets)
@@ -68,11 +66,11 @@ class BucketsController < ApplicationController
       :email,
       :charsets,
       to: [],
-      attachments: [:filename, :name, :type]
+      attachments: %i[filename name type]
     )
 
     # See https://rollbar.com/putsbox/putsbox/items/15
-    # request.POST.charsets	{"to":"UTF-8","html":"us-ascii","subject":"UTF-8","from":"UTF-8","text":"us-ascii"}
+    # request.POST.charsets  {"to":"UTF-8","html":"us-ascii","subject":"UTF-8","from":"UTF-8","text":"us-ascii"}
     RecordEmail.call!(
       token: email_params['email'].gsub(/\@.*/, ''),
       email: Email.new(email_params),
