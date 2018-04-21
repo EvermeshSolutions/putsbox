@@ -15,15 +15,13 @@ class ApplicationController < ActionController::Base
     # To avoid XSS the email preview is under the preview subdomain,
     # which does not share the session with the root domain
     # This check makes sure users don't navigate on other pages than preview using the preview subdomain
-    if request.url =~ /^#{request.protocol}preview\./
+    if /^#{request.protocol}preview\./.match?(request.url)
       redirect_to request.url.gsub(/#{request.protocol}preview\./, request.protocol)
     end
   end
 
   def check_ownership!
-    unless owner?(bucket)
-      redirect_to bucket_path(bucket.token), alert: 'Only the bucket owner can perform this operation'
-    end
+    redirect_to bucket_path(bucket.token), alert: 'Only the bucket owner can perform this operation' unless owner?(bucket)
   end
 
   def owner?(bucket)
@@ -45,8 +43,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation, :remember_me])
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :email, :password, :remember_me])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :password, :password_confirmation, :current_password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password password_confirmation remember_me])
+    devise_parameter_sanitizer.permit(:sign_in, keys: %i[name email password remember_me])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name email password password_confirmation current_password])
   end
 end

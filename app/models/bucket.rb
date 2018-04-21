@@ -14,7 +14,7 @@ class Bucket
 
   before_create :generate_token
 
-  index({ updated_at: 1 }, { expire_after_seconds: 1.week })
+  index({ updated_at: 1 }, expire_after_seconds: 1.week)
 
   def clear_history
     emails.delete_all
@@ -36,7 +36,7 @@ class Bucket
 
   def generate_token
     self.token ||= loop do
-      random_token = Faker::Internet.email.gsub(/\@.*/, '').gsub('.', '_')
+      random_token = Faker::Internet.email.gsub(/\@.*/, '').tr('.', '_')
       break random_token unless Bucket.where(token: random_token).exists?
     end
   end

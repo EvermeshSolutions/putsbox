@@ -5,13 +5,13 @@ RSpec.describe TrackPageView do
     let(:bucket)  { Bucket.new token: 'super_token' }
     let(:request) { double(:request).as_null_object }
 
-    before { stub_env('GA', 'UA-12345678-9')}
+    before { stub_env('GA', 'UA-12345678-9') }
 
     it 'creates a page view' do
       tracker = double(:tracker)
 
-      allow(Staccato).to receive(:tracker).
-        and_return(tracker)
+      allow(Staccato).to receive(:tracker)
+        .and_return(tracker)
 
       expect(tracker).to receive(:pageview).with(title: bucket.token)
 
