@@ -3,6 +3,7 @@ PutsBox::Application.routes.draw do
 
   root to: 'home#index'
 
+  get ':token/requests_count' => 'buckets#requests_count'
   post 'buckets' => 'buckets#create', as: :buckets
   get ':token/inspect' => 'buckets#show', as: :bucket
   put ':token/buckets' => 'buckets#update', as: :update_bucket

@@ -1,7 +1,20 @@
 class BucketsController < ApplicationController
+  include ActionController::Live
+
   skip_before_action :verify_authenticity_token, only: %i[record create]
 
   before_action :check_ownership!, only: %i[clear destroy]
+
+  def requests_count
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = SSE.new(response.stream, event: 'requests_count')
+    begin
+      sse.write(requests_count: bucket.requests.count)
+    rescue ClientDisconnected
+    ensure
+      sse.close
+    end
+  end
 
   def create
     bucket = Bucket.create(
