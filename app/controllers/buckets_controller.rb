@@ -7,7 +7,7 @@ class BucketsController < ApplicationController
 
   def requests_count
     response.headers['Content-Type'] = 'text/event-stream'
-    sse = SSE.new(response.stream, event: 'requests_count')
+    sse = SSE.new(response.stream, event: 'emails_count')
 
     emails = Email.gte(updated_at: 6.seconds.ago).to_a.map do |email|
       SimpleEmailSerializer.new(email)
