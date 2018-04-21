@@ -23,8 +23,8 @@ App.buckets['show'] = ->
 emailCountPoller = ->
   bucket = $('#putsbox-token-input').data('bucket-token')
 
-  pusher = new Pusher($('body').data('pusher-key'), { cluster: $('body').data('pusher-cluster'), encrypted: true })
-
-  channel = pusher.subscribe("channel_emails_#{bucket}")
-
-  channel.bind('update_count', (data) -> $('body').trigger('new-email', email: data.email, emailsCount: data.emails_count))
+  source = new EventSource("/#{bucket}/requests_count")
+  source.addEventListener('requests_count', (event) ->
+    data = JSON.parse(event.data)
+    $('body').trigger('new-email', email: data.email, emailsCount: data.emails_count)
+  )
