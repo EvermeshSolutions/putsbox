@@ -21,10 +21,13 @@ App.buckets['show'] = ->
 
 
 emailCountPoller = ->
-  bucket = $('#putsbox-token-input').data('bucket-token')
+  try
+    bucket = $('#putsbox-token-input').data('bucket-token')
 
-  source = new EventSource("/#{bucket}/requests_count")
-  source.addEventListener('emails_count', (event) ->
-    data = JSON.parse(event.data)
-    $('body').trigger('new-email', emails: data.emails, emailsCount: data.emails_count)
-  )
+    source = new EventSource("/#{bucket}/requests_count")
+    source.addEventListener('emails_count', (event) ->
+      data = JSON.parse(event.data)
+      $('body').trigger('new-email', emails: data.emails, emailsCount: data.emails_count)
+    )
+  catch error
+    console.log(error)
