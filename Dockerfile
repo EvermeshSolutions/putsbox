@@ -10,16 +10,10 @@ ADD Gemfile.lock                 /app/
 RUN bundle install
 
 ## Add & compile Webpack code in order from least likely to most likely to change to improve layer caching.
-ADD .babelrc                            /app/.babelrc
-ADD .postcssrc.yml                      /app/.postcssrc.yml
-ADD bin/webpack                         /app/bin/webpack
 ADD vendor                              /app/vendor
 ADD public                              /app/public
-ADD config/webpacker.yml                /app/config/webpacker.yml
-ADD config/webpack                      /app/config/webpack
 ADD config/locales                      /app/config/locales
 ADD app/assets                          /app/app/assets
-ADD app/javascript                      /app/app/javascript
 
 ## Add APP code in order from least likely to most likely to change to improve layer caching.
 ADD config.ru                           /app/config.ru
