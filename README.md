@@ -6,17 +6,39 @@
 
 PutsBox makes email integration tests easy. [Try it now](http://putsbox.com).
 
-
 ## Getting Started
 
-For setting up PutsBox locally, please follow the [PutsReq Getting Started instructions](https://github.com/phstc/putsreq/blob/master/README.md#getting-started). With the difference that PutsBox needs [Inbound Email Parse Webhook](https://sendgrid.com/docs/API_Reference/Webhooks/inbound_email.html) configured for receiving emails.
+PutsBox uses [SendGrid Inbound Email Parse Webhook](https://sendgrid.com/docs/API_Reference/Parse_Webhook/inbound_email.html) for receiving e-mails, therefore for running PutsBox in development or your server, you will need to setup a SendGrid account and configure an Inbound Parse within SendGrid admin.
+
+Have a look at this post [Test SendGrid Webhooks with ngrok](https://sendgrid.com/blog/test-webhooks-ngrok/) for receiving Webhook calls in your localhost.
+
+### Steps to run PutsBox in development
+
+For following the instructions below, you will need to install [Docker](https://www.docker.com/get-docker).
+
+```shell
+cd ~/workspace
+
+git clone git@github.com:phstc/putsbox.git
+
+docker-compose up -d
+
+open http://localhost:3000
+
+docker-compose logs --follow --tail=100 app
+```
+
+#### Running tests
+
+```shell
+docker-compose run app bundle exec rspec
+```
 
 ### Production
 
-Auto expire (remove) buckets and emails.
+Putsbox auto expires (removes) inactive buckets in 1 day and emails in 15 minutes.
 
-- 86400 = 1 day
-- 600 = 15 minutes
+For enabling this behavior, PutsBox uses [MongoDB TTL](https://docs.mongodb.com/manual/tutorial/expire-data/).
 
 ```
 db.buckets.createIndex({ "updated_at": 1 }, { expireAfterSeconds: 86400 })

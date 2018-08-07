@@ -3,13 +3,13 @@ development:
     default:
       database: putsbox
       hosts:
-        - localhost:27017
+        - <%= ENV.fetch('MONGO_URI', 'db') %>
 test:
   clients:
     default:
       database: putsbox_test
       hosts:
-        - localhost:27017
+        - <%= ENV.fetch('MONGO_URI', 'db') %>
 production:
   clients:
     default:
