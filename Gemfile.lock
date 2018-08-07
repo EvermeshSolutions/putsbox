@@ -154,7 +154,7 @@ GEM
       pry (~> 0.10)
     public_suffix (3.0.1)
     puma (3.11.4)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.1.6)
@@ -247,7 +247,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    sprockets (3.7.1)
+    sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -313,6 +313,7 @@ DEPENDENCIES
   rollbar
   rspec-rails
   sass-rails
+  sprockets (~> 3.7.2)
   staccato
   stub_env
   uglifier (>= 1.3.0)
