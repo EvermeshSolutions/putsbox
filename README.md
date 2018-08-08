@@ -45,6 +45,9 @@ db.buckets.createIndex({ "updated_at": 1 }, { expireAfterSeconds: 86400 })
 db.emails.createIndex({ "created_at": 1 }, { expireAfterSeconds: 600 })
 ```
 
+### Extra Long Instructions:
+[Check the WIKI](https://github.com/phstc/putsbox/wiki/Extra-Long-Instructions)
+
 ### License
 
 Please see [LICENSE](https://github.com/phstc/putsbox/blob/master/LICENSE) for licensing details.
