@@ -9,7 +9,7 @@ class EmailsController < ApplicationController
     TrackPageView.call!(request: request, bucket: bucket)
 
     email = if params[:id] == 'last'
-              bucket.emails.order(:created_at.desc).first
+              bucket.emails.order(:created_at.desc).first!
             else
               bucket.emails.find(params[:id])
             end
@@ -26,11 +26,11 @@ class EmailsController < ApplicationController
   def render_or_404(format, email)
     case format
     when :html
-      email&.html ? render(inline: email.html) : render_404(format)
+      email.html ? render(inline: email.html) : render_404(format)
     when :text
-      email&.text ? render(plain: email.text) : render_404(format)
+      email.text ? render(plain: email.text) : render_404(format)
     when :json
-      email ? render(json: email) : render_404(format)
+      render(json: email)
     end
   end
 
