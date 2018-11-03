@@ -9,7 +9,7 @@ class EmailsController < ApplicationController
     TrackPageView.call!(request: request, bucket: bucket)
 
     email = if params[:id] == 'last'
-              bucket.emails.order(:created_at.desc).first!
+              bucket.emails.order(:created_at.desc).first or raise ActiveRecord::RecordNotFound
             else
               bucket.emails.find(params[:id])
             end
