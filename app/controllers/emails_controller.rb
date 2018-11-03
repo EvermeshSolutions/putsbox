@@ -9,7 +9,7 @@ class EmailsController < ApplicationController
     TrackPageView.call!(request: request, bucket: bucket)
 
     email = if params[:id] == 'last'
-              bucket.emails.order(:created_at.desc).first or raise ActiveRecord::RecordNotFound
+              bucket.emails.order(:created_at.desc).first or raise Mongoid::Errors::DocumentNotFound.new(Email, {})
             else
               bucket.emails.find(params[:id])
             end
