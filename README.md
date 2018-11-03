@@ -6,7 +6,9 @@
 
 PutsBox makes email integration tests easy. [Try it now](http://putsbox.com).
 
-## Getting Started
+Have a look at [Test emails with automated testing tools](http://www.pablocantero.com/blog/2015/08/05/test-emails-with-automated-testing-tools/) for some examples.
+
+## Getting started
 
 PutsBox uses [SendGrid Inbound Email Parse Webhook](https://sendgrid.com/docs/API_Reference/Parse_Webhook/inbound_email.html) for receiving e-mails, therefore for running PutsBox in development or your server, you will need to setup a SendGrid account and configure an Inbound Parse within SendGrid admin.
 
