@@ -1,6 +1,8 @@
 class BucketsController < ApplicationController
   include ActionController::Live
 
+  respond_to :html, :json
+
   skip_before_action :verify_authenticity_token, only: %i[record create]
 
   before_action :check_ownership!, only: %i[clear destroy]
@@ -45,6 +47,11 @@ class BucketsController < ApplicationController
 
   def show
     @emails = bucket.emails.page(params[:page]).per(50)
+
+    respond_to do |format|
+      format.html { render }
+      format.json { render json: @emails }
+    end
   end
 
   def record
