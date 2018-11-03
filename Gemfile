@@ -2,17 +2,16 @@ source 'https://rubygems.org'
 
 ruby '2.5.0'
 
-
-gem 'rails', '~> 5.1.0'
-gem 'sass-rails'
-gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'rails', '~> 5.1.0'
+gem 'sass-rails'
 gem 'sprockets', '~> 3.7.2'
+gem 'uglifier', '>= 1.3.0'
 
-gem 'mongoid', '~> 6'
-gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
+gem 'kaminari-mongoid'
+gem 'mongoid', '~> 6'
 gem 'redis'
 
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -22,37 +21,37 @@ group :production do
 end
 
 group :test do
-  gem 'codeclimate-test-reporter', require: nil
   gem 'capybara'
+  gem 'codeclimate-test-reporter', require: nil
   gem 'poltergeist'
-  gem 'stub_env'
   gem 'rails-controller-testing'
+  gem 'stub_env'
 end
 
 group :development, :test do
-  gem 'pry-byebug'
-  gem 'rspec-rails'
-  gem 'rack-test'
   gem 'database_cleaner'
   gem 'dotenv-rails'
+  gem 'pry-byebug'
+  gem 'rack-test'
+  gem 'rspec-rails'
   gem 'webmock'
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-clipboard'
-  gem 'rails-assets-favico.js'
-  gem 'rails-assets-dispatcher'
   gem 'rails-assets-bootstrap-less'
+  gem 'rails-assets-clipboard'
+  gem 'rails-assets-dispatcher'
+  gem 'rails-assets-favico.js'
 end
 
-gem 'dotiw'
-gem 'devise'
-gem 'interactor', '~> 3.0'
 gem 'active_model_serializers'
+gem 'devise'
+gem 'dotiw'
 gem 'faker'
-gem 'react-rails'
-gem 'staccato'
-gem 'rollbar'
-gem 'oj'
+gem 'interactor', '~> 3.0'
 gem 'loofah', '>= 2.2.3'
+gem 'oj'
 gem 'puma'
+gem 'react-rails'
+gem 'rollbar'
+gem 'staccato'
