@@ -44,6 +44,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-favico.js'
 end
 
+gem 'actionview', '>= 5.1.6.2'
 gem 'active_model_serializers'
 gem 'devise', '>= 4.6.0'
 gem 'dotiw'
