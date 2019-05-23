@@ -1,6 +1,6 @@
 class SafeRedis
   def initialize
-    @redis = Redis.new url: ENV['REDISTOGO_URL']
+    @redis = Redis.new url: ENV['REDIS_URL']
   rescue => ex
     # bad URI(is not URI?):  (URI::InvalidURIError)
     Rollbar.error(ex)
