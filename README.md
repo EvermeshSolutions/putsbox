@@ -18,7 +18,7 @@ Have a look at this post [Test SendGrid Webhooks with ngrok](https://sendgrid.co
 
 #### Basic steps
 
-This is the basic steps for running the Rails app, but if you want to run to receive real e-mails, please check [Full stes](#full-steps).
+This is the basic steps for running the Rails app, but if you want to receive e-mails, please check [Full steps](#full-steps).
 
 For following the instructions below, you will need to install [Docker](https://www.docker.com/get-docker).
 
@@ -39,7 +39,6 @@ docker-compose logs --follow --tail=100 app
 The full steps instructions, include SendGrid, and domain setup, which is needed for fully running PutsBox.
 
 [Check the Wiki](https://github.com/phstc/putsbox/wiki/Full-steps-to-run-PutsBox-in-development)
-
 
 #### Running tests
 
