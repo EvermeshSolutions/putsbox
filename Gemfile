@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.0'
+ruby '2.5.5'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
@@ -14,7 +14,7 @@ gem 'kaminari-mongoid'
 gem 'mongoid', '~> 6'
 gem 'redis'
 
-gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-sass', '>= 3.4.1'
 
 group :production do
   gem 'rails_12factor'
@@ -45,7 +45,7 @@ source 'https://rails-assets.org' do
 end
 
 gem 'active_model_serializers'
-gem 'devise'
+gem 'devise', '>= 4.6.0'
 gem 'dotiw'
 gem 'faker'
 gem 'ffi', '>= 1.9.24'
@@ -53,6 +53,7 @@ gem 'interactor', '~> 3.0'
 gem 'loofah', '>= 2.2.3'
 gem 'oj'
 gem 'puma'
+gem 'rack', '>= 2.0.6'
 gem 'react-rails'
 gem 'rollbar'
 gem 'staccato'
