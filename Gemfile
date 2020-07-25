@@ -11,7 +11,8 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'kaminari-actionview'
 gem 'kaminari-mongoid'
-gem 'mongoid', '~> 6'
+gem 'mongoid', '~> 6.4.1'
+gem 'mongo', '~> 2.2'
 gem 'redis'
 
 gem 'bootstrap-sass', '>= 3.4.1'
