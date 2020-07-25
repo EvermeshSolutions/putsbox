@@ -10,14 +10,11 @@
       <%= yield %>
       <hr />
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <strong>Emails Recorded: <%= REDIS.get 'emails_recorded' %></strong>
           <br/>
           <br/>
           <p>Are you looking for HTTP testing tools? Have a look at <a href="http://putsreq.com" target="_blank">PutsReq</a>.</p>
-        </div>
-        <div class="col-md-6 text-right">
-          Developed by <a href="http://pablocantero.com" target="_blank">Pablo Cantero</a> | Design by <a href="http://rodger.com.br" target="_blank">Glauber Rodger</a>.
         </div>
       </div>
     </div>
